@@ -16,7 +16,7 @@ public class Medium {
         this.states = new double[H/RESOLUTION][W/RESOLUTION];
         for (int i = 0; i < H/RESOLUTION; i++) {
             for (int j = 0; j < W/RESOLUTION; j++) {
-                states[i][j] = gen.nextDouble() * 255; 
+                states[i][j] = gen.nextDouble() * 220; 
             }
         }
     }
@@ -42,10 +42,11 @@ public class Medium {
     }
 
     public void ripple(int x, int y) {
-        for (int i = - 3; i < 4; i++) {
-            for (int j = - 3; j < 3; j++) {
+        int bound = 3;
+        for (int i = - bound; i < bound + 1; i++) {
+            for (int j = - bound; j < bound + 1; j++) {
                 if (y + j < states.length && x + i < states[0].length && y + j > 0 && x + i > 0)
-                    states[y+j][x+i] = 255;
+                    states[y+j][x+i] = gen.nextDouble() * 100 + 155;
             }
         }
     }
@@ -61,7 +62,7 @@ public class Medium {
     public void display(Graphics2D graphic) {
         for (int i = 0; i < states.length; i++) {
             for (int j = 0; j < states[i].length; j++) {
-                Color color = new Color(Math.min((int)states[i][j], 255), 20, 20);
+                Color color = new Color(20, 20, Math.min((int)states[i][j], 255));
                 graphic.setPaint(color);
                 graphic.fill(new Rectangle2D.Double((double)i * RESOLUTION, (double)j * RESOLUTION, HEIGHT/RESOLUTION, WIDTH/RESOLUTION));
             }
